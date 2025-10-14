@@ -8,7 +8,7 @@ export const run = {
       client.sendContact(m.chat, [{
          name: Config.owner_name,
          number: Config.owner,
-         about: 'Admin & Creador'
+         about: 'Admin & Creator'
       }], m, {
          org: 'Crysis Network',
          website: 'https://api.crysis.my.id',
