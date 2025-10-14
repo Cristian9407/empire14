@@ -1,6 +1,6 @@
 export const run = {
    usage: ['twitter'],
-   hidden: ['tw', 'twdl'],
+   hidden: ['tw', 'x', 'twdl'],
    use: 'link',
    category: 'downloader',
    async: async (m, {
@@ -37,3 +37,4 @@ export const run = {
    limit: true
 
 }
+
