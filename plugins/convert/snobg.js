@@ -49,6 +49,7 @@ export const run = {
       }
    },
    error: false,
-   premium: true,
+   premium: false,
    limit: true
+
 }
