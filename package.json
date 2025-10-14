@@ -1,5 +1,5 @@
 {
-   "name": "neoxr-bot",
+   "name": "empire14",
    "version": "5.0",
    "description": "WhatsApp Bot (Base)",
    "main": "index.js",
@@ -12,7 +12,7 @@
    },
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/neoxr/neoxr-bot.git"
+      "url": "git+https://github.com/Cristian9407/empire14.git"
    },
    "keywords": [
       "wb",
@@ -21,9 +21,9 @@
    "author": "Wildan Izzudin",
    "license": "ISC",
    "bugs": {
-      "url": "https://github.com/neoxr/neoxr-bot/issues"
+      "url": "https://github.com/nCristian9407/empire14/issues"
    },
-   "homepage": "https://github.com/neoxr/neoxr-bot#readme",
+   "homepage": "https://github.com/Cristian9407/empire14#readme",
    "dependencies": {
       "@adiwajshing/keyed-db": "^0.2.4",
       "@neoxr/wb": "^6.0.0-rc.18",
