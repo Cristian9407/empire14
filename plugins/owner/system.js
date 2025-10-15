@@ -20,5 +20,7 @@ export const run = {
       system[type] = status
       client.reply(m.chat, Utils.texted('bold', `🚩 ${Utils.ucword(command)} has been ${option == 'on' ? 'activated' : 'inactivated'} successfully.`), m)
    },
-   owner: true
+   owner: false,
+   admin: true
+
 }
