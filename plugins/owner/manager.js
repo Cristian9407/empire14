@@ -64,6 +64,8 @@ export const run = {
       }
    },
    error: false,
-   owner: false
+   owner: false,
+   admin: true
 
 }
+
