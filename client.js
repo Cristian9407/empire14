@@ -47,7 +47,7 @@ const connect = async () => {
       }, {
          // This is the Baileys connection options section
          version: [2, 3000, 1028302242], // To see the latest version : https://wppconnect.io/whatsapp-versions/
-         browser: ['MacOS', 'Safari', '14.4.1'],
+         browser: ['Ubuntu', 'Firefox', '20.0.00'],
          shouldIgnoreJid: jid => {
             return /(newsletter|bot)/.test(jid)
          }
