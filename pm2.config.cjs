@@ -1,6 +1,6 @@
 module.exports = {
    apps: [{
-      name: 'neoxr',
+      name: 'empire',
       script: './index.js',
       node_args: '--max-old-space-size=1024',
       env: {
