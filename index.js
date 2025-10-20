@@ -56,7 +56,7 @@ function start() {
    })
       .on('message', data => {
          if (data === 'reset') {
-            console.log('Restarting...')
+            console.log('Reiniciando...')
             p.kill()
             p = null
          }
@@ -78,16 +78,17 @@ if (major < 20) {
    process.exit(1)
 }
 
-CFonts.say('NEOXR BOT', {
+CFonts.say('EMPIRE BOT', {
    font: 'tiny',
    align: 'center',
    colors: ['system']
 })
-CFonts.say('Github : https://github.com/neoxr/neoxr-bot', {
+CFonts.say('Github : https://github.com/Cristian9407/empire14', {
    colors: ['system'],
    font: 'console',
    align: 'center'
 })
 
 start()
+
 startAutoClean()
