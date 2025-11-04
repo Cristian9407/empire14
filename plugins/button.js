@@ -12,6 +12,42 @@ export const run = {
    }) => {
       try {
          switch (command) {
+            case 'apk':
+               const buttons = [{
+                  name: 'quick_reply',
+                  buttonParamsJson: JSON.stringify({
+                     display_text: 'Runtime',
+                     id: `${isPrefix}run`
+                  })
+               }, {
+                  name: 'single_select',
+                  buttonParamsJson: JSON.stringify({
+                     title: 'Tap Here!',
+                     sections: [{
+                        rows: [{
+                           title: 'HTTP Injector',
+                           description: `6.3.6`,
+                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1mg-29OunJ14EKppSCE1J2CV_3zmJZHu-/view?usp=drivesdk`
+                        }, {
+                           title: 'Clash Meta For Android',
+                           description: `2.11.8`,
+                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1o1kBg1szSFEDy3_nLoE6dCIaHMw_jfm7/view?usp=drivesdk`
+                        }, {
+                           title: 'HTTP Custom',
+                           description: `5.11.29-RC90`,
+                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1o6_w0LnNa0va7g0FCJgEe5x6gas22cpi/view?usp=drivesdk`
+                        }]
+                     }]
+                  })
+               }]
+               client.sendIAMessage(m.chat, buttons, m, {
+                  header: '',
+                  content: 'Hi! @0',
+                  footer: global.footer,
+                  media: Func.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
+               })
+               break
+               
             case 'button1':
                const buttons = [{
                   name: 'quick_reply',
@@ -159,4 +195,5 @@ export const run = {
       }
    },
    error: false
+
 }
