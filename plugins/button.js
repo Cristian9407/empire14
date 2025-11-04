@@ -47,40 +47,7 @@ export const run = {
                   media: Func.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
                })
                break
-               
-            case 'button1':
-               const buttons = [{
-                  name: 'quick_reply',
-                  buttonParamsJson: JSON.stringify({
-                     display_text: 'Runtime',
-                     id: `${isPrefix}run`
-                  })
-               }, {
-                  name: 'single_select',
-                  buttonParamsJson: JSON.stringify({
-                     title: 'Tap Here!',
-                     sections: [{
-                        rows: [{
-                           title: 'Dummy 1',
-                           // description: `X`,
-                           id: `${isPrefix}run`
-                        }, {
-                           title: 'Dummy 2',
-                           // description: `Y`,
-                           id: `${isPrefix}run`
-                        }]
-                     }]
-                  })
-               }]
-               client.sendIAMessage(m.chat, buttons, m, {
-                  header: global.header,
-                  content: 'Hi! @0',
-                  v2: true,
-                  footer: global.footer,
-                  media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
-               })
-               break
-
+      
             case 'button2': // Button 2 (Text Only)
                client.replyButton(m.chat, [{
                   text: 'Runtime',
@@ -197,3 +164,4 @@ export const run = {
    error: false
 
 }
+
