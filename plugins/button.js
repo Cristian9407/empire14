@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 export const run = {
-   usage: ['button1', 'button2', 'button3', 'button4', 'button5', 'button6'],
+   usage: ['apk', 'button2', 'button3', 'button4', 'button5', 'button6'],
    category: 'example',
    async: async (m, {
       client,
