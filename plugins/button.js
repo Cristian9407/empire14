@@ -26,11 +26,11 @@ export const run = {
                      sections: [{
                         rows: [{
                            title: 'HTTP Injector',
-                           description: `6.3.6`,
+                           // description: `6.3.6`,
                            id: `${isPrefix}gdrive https://drive.google.com/file/d/1mg-29OunJ14EKppSCE1J2CV_3zmJZHu-/view?usp=drivesdk`
                         }, {
                            title: 'Clash Meta For Android',
-                           description: `2.11.8`,
+                           // description: `2.11.8`,
                            id: `${isPrefix}gdrive https://drive.google.com/file/d/1o1kBg1szSFEDy3_nLoE6dCIaHMw_jfm7/view?usp=drivesdk`
                         }]
                      }]
@@ -161,5 +161,6 @@ export const run = {
    error: false
 
 }
+
 
 
