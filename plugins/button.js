@@ -32,19 +32,16 @@ export const run = {
                            title: 'Clash Meta For Android',
                            description: `2.11.8`,
                            id: `${isPrefix}gdrive https://drive.google.com/file/d/1o1kBg1szSFEDy3_nLoE6dCIaHMw_jfm7/view?usp=drivesdk`
-                        }, {
-                           title: 'HTTP Custom',
-                           description: `5.11.29-RC90`,
-                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1o6_w0LnNa0va7g0FCJgEe5x6gas22cpi/view?usp=drivesdk`
                         }]
                      }]
                   })
                }]
                client.sendIAMessage(m.chat, buttons, m, {
-                  header: '',
+                  header: global.header,
                   content: 'Hi! @0',
+                  v2: true,
                   footer: global.footer,
-                  media: Func.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
+                  media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
                })
                break
       
@@ -164,4 +161,5 @@ export const run = {
    error: false
 
 }
+
 
