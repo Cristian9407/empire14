@@ -1,6 +1,6 @@
 export const run = {
    usage: ['everyone'],
-   hidden: ['tagall'],
+   hidden: ['tagall', 'todos'],
    use: 'text (optional)',
    category: 'admin tools',
    async: async (m, {
