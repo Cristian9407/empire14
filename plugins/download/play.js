@@ -32,7 +32,7 @@ export const run = {
             thumbnail: json.thumbnail
          }).then(async () => {
             client.sendFile(m.chat, json.data.url, json.data.filename, '', m, {
-               document: true,
+               document: false,
                APIC: await Utils.fetchAsBuffer(json.thumbnail)
             }, {
                jpegThumbnail: await Utils.generateImageThumbnail(json.thumbnail)
@@ -44,4 +44,5 @@ export const run = {
    },
    error: false,
    restrict: true
+
 }
