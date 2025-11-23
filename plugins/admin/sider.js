@@ -1,5 +1,6 @@
 export const run = {
-   usage: ['sider', 'fantasmas'],
+   usage: ['fantasmas'],
+   hidden: ['sider'],
    use: '(option)',
    category: 'admin tools',
    async: async (m, {
