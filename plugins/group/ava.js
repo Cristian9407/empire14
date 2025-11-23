@@ -1,5 +1,6 @@
 export const run = {
-   usage: ['ava', 'foto'],
+   usage: ['foto',],
+   hidden: ['ava'],
    use: 'mention or reply',
    category: 'group',
    async: async (m, {
