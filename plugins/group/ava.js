@@ -1,5 +1,5 @@
 export const run = {
-   usage: ['ava'],
+   usage: ['ava', 'foto'],
    use: 'mention or reply',
    category: 'group',
    async: async (m, {
@@ -8,9 +8,9 @@ export const run = {
       Utils
    }) => {
       let number = isNaN(text) ? (text.startsWith('+') ? text.replace(/[()+\s-]/g, '') : (text).split`@` [1]) : text
-      if (!text && !m.quoted) return client.reply(m.chat, Utils.texted('bold', `🚩 Mention or reply chat target.`), m)
-      if (isNaN(number)) return client.reply(m.chat, Utils.texted('bold', `🚩 Invalid number.`), m)
-      if (number.length > 15) return client.reply(m.chat, Utils.texted('bold', `🚩 Invalid format.`), m)
+      if (!text && !m.quoted) return client.reply(m.chat, Utils.texted('bold', `🚩 Mencionar o etiquetar el chat.`), m)
+      if (isNaN(number)) return client.reply(m.chat, Utils.texted('bold', `🚩 Número no válido.`), m)
+      if (number.length > 15) return client.reply(m.chat, Utils.texted('bold', `🚩 Formato no válido.`), m)
       try {
          if (text) {
             var user = number + '@s.whatsapp.net'
@@ -24,7 +24,7 @@ export const run = {
          try {
             var pic = await client.profilePictureUrl(user, 'image')
          } catch {} finally {
-            if (!pic) return client.reply(m.chat, Utils.texted('bold', `🚩 He/She didn't put a profile picture.`), m)
+            if (!pic) return client.reply(m.chat, Utils.texted('bold', `🚩 No puso foto de perfil.`), m)
             client.sendFile(m.chat, pic, '', '', m)
          }
       }
