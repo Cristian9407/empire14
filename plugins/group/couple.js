@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 
 export const run = {
    usage: ['couple'],
+   hiden: ['pareja'],
    category: 'group',
    async: async (m, {
       client,
