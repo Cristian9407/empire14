@@ -1,8 +1,8 @@
 import { format } from 'date-fns'
 
 export const run = {
-   usage: ['couple'],
-   hiden: ['pareja'],
+   usage: ['pareja'],
+   hidden: ['couple'],
    category: 'group',
    async: async (m, {
       client,
