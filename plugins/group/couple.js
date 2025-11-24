@@ -21,7 +21,7 @@ export const run = {
             }
          }
       }
-      client.reply(m.chat, `Mejor pareja aleatoria : @${tag1.replace(/@.+/, '')} 💞 @${tag2.replace(/@.+/, '')}, La nueva pareja del día se puede elegir el _${format(now, 'dd/MM/yy HH:mm')}._`)
+      client.reply(m.chat, `Mejor pareja del momento : @${tag1.replace(/@.+/, '')} 💞 @${tag2.replace(/@.+/, '')}`)
    },
    group: true
 }
