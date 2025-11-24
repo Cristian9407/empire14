@@ -1,8 +1,8 @@
 import { format } from 'date-fns'
 
 export const run = {
-   usage: ['infieles'],
-   hidden: ['infiel'],
+   usage: ['infiel'],
+   hidden: ['infieles'],
    category: 'group',
    async: async (m, {
       client,
@@ -37,7 +37,7 @@ export const run = {
             }
          }
       }
-      client.reply(m.chat, `乂  *I N F I E L E S*\n\n◦ @${tag1.replace(/@.+/, '')}\n◦ @${tag2.replace(/@.+/, '')}\n◦ @${tag3.replace(/@.+/, '')}\n◦ @${tag4.replace(/@.+/, '')}\n◦ @${tag5.replace(/@.+/, '')}\n◦ @${tag6.replace(/@.+/, '')}\n◦ @${tag7.replace(/@.+/, '')}\n◦ @${tag8.replace(/@.+/, '')}\n◦ @${tag9.replace(/@.+/, '')}\n◦ @${tag10.replace(/@.+/, '')}`)
+      client.reply(m.chat, `乂  *T O P  1 0  I N F I E L E S*\n\n◦ @${tag1.replace(/@.+/, '')}\n◦ @${tag2.replace(/@.+/, '')}\n◦ @${tag3.replace(/@.+/, '')}\n◦ @${tag4.replace(/@.+/, '')}\n◦ @${tag5.replace(/@.+/, '')}\n◦ @${tag6.replace(/@.+/, '')}\n◦ @${tag7.replace(/@.+/, '')}\n◦ @${tag8.replace(/@.+/, '')}\n◦ @${tag9.replace(/@.+/, '')}\n◦ @${tag10.replace(/@.+/, '')}`)
    },
    group: true
 }
