@@ -14,7 +14,7 @@ export const run = {
          let member = participants.filter(v => !v.admin).map(v => v.id).filter(v => !v.startsWith('62') && v != client.decodeJid(client.user.id))
          if (!args || !args[0]) {
             if (member.length == 0) return client.reply(m.chat, Utils.texted('bold', `🚩 Este grupo está limpio de fantasmas.`), m)
-            let teks = `✅ *${member.length}* fantasmas encontrados, envia *${isPrefix + command} -y* para eliminarlos.\n\n`
+            let teks = `✅ *${member.length}* forasteros encontrados, envia *${isPrefix + command} -y* para eliminarlos.\n\n`
             teks += member.map(v => '◦  @' + v.replace(/@.+/, '')).join('\n')
             client.reply(m.chat, teks, m)
          } else if (args[0] == '-y') {
