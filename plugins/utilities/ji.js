@@ -7,7 +7,7 @@ export const run = {
       isPrefix,
       Utils
    }) => {
-      client.sendSticker(m.chat, 'https://tinyurl.com/gdd01', '', m)
+      client.sendSticker(m.chat, 'https://tinyurl.com/gdd01', m)
    },
    error: false
 }
