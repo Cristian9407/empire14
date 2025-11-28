@@ -8,7 +8,9 @@ export const run = {
       command,
       Utils
    }) => {
-      client.sendFile(m.chat, '.lib/media/image/empire.webp', m)
-   },
+      client.sendSticker(m.chat, '/lib/media/image/empire.webp', m, {
+                  packname: exif.sk_pack,
+                  author: exif.sk_author
+   }),
    error: false
 }
