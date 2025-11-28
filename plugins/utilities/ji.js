@@ -9,9 +9,9 @@ export const run = {
       Utils
    }) => {
       client.sendSticker(m.chat, '/lib/media/image/empire.webp', m, {
-                  packname: exif.sk_pack,
-                  author: exif.sk_author
-      })
+            packname: packname || '',
+            author: author || ''
+         })
    },
    error: false
 }
