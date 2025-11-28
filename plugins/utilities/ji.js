@@ -5,10 +5,9 @@ export const run = {
       client,
       text,
       isPrefix,
-      command,
       Utils
    }) => {
-      client.sendSticker(m.chat, img, './lib/media/image/empire.webp', m,)
+      client.sendSticker(m.chat, './lib/media/image/empire.webp', '', m)
    },
    error: false
 }
