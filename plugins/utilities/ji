@@ -3,7 +3,10 @@ export const run = {
    category: 'utilities',
    async: async (m, {
       client,
-      Utils
+      text,
+      isPrefix,
+      command,
+      Utils,
    }) => {
       client.sendSticker(m.chat, '/lib/media/image/empire.webp', '' m)
    },
