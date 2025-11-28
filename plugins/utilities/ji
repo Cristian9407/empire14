@@ -1,6 +1,6 @@
 export const run = {
    usage: ['bot'],
-   category: '',
+   category: 'utilities',
    async: async (m, {
       client,
       Utils
