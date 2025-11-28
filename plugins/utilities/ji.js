@@ -8,7 +8,7 @@ export const run = {
       command,
       Utils
    }) => {
-      client.sendFile(m.chat, '.lib/media/image/empire.webp', '', m)
+      client.sendFile(m.chat, '/lib/media/image/empire.webp', '', m)
    },
    error: false
 }
