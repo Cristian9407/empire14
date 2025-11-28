@@ -6,7 +6,7 @@ export const run = {
       text,
       isPrefix,
       command,
-      Utils,
+      Utils
    }) => {
       client.sendSticker(m.chat, '/lib/media/image/empire.webp', '' m)
    },
