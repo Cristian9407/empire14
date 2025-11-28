@@ -7,7 +7,7 @@ export const run = {
       isPrefix,
       Utils
    }) => {
-      client.sendSticker(m.chat, './lib/media/image/empire.webp', '', m)
+      client.sendFile(m.chat, './lib/media/image/empire.webp', '', m)
    },
    error: false
 }
