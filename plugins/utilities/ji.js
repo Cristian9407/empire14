@@ -8,7 +8,7 @@ export const run = {
       command,
       Utils
    }) => {
-      client.sendSticker(m.chat, './lib/media/image/empire.webp', '', m,)
+      client.sendSticker(m.chat, './lib/media/image/empire.webp', m,)
    },
    error: false
 }
