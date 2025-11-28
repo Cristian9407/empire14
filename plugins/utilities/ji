@@ -1,1 +1,11 @@
-
+export const run = {
+   usage: ['bot'],
+   category: '',
+   async: async (m, {
+      client,
+      Utils
+   }) => {
+      client.sendSticker(m.chat, lib/media/image/empire.webp, m)
+   },
+   error: false
+}
