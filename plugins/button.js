@@ -36,6 +36,14 @@ export const run = {
                            title: 'HTTP Custom',
                            description: `5.11.29-RC90`,
                            id: `${isPrefix}gdrive https://drive.google.com/file/d/1o6_w0LnNa0va7g0FCJgEe5x6gas22cpi/view?usp=drivesdk`
+                         }, {
+                           title: 'XuperMov',
+                           description: `6.2.1`,
+                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1bgyuuq88B6NyKITd-T7hsuSthArJkqcA/view?usp=drivesdk`
+                         }, {
+                           title: 'XuperTV',
+                           description: `4.34.4`,
+                           id: `${isPrefix}gdrive https://drive.google.com/file/d/1Xt3ZuB545uP_2wmWLn5IIuEE_DfLkoln/view?usp=drivesdk`
                         }]
                      }]
                   })
@@ -165,6 +173,7 @@ export const run = {
    error: false
 
 }
+
 
 
 
