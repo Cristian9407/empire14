@@ -381,7 +381,7 @@ export const run = {
                const buttons = [{
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Instagram Oficial',
+                     display_text: 'Github Oficial',
                      url: 'https://wapify.crysis.eu',
                      merchant_url: 'https://wapify.crysis.eu'
                   })
@@ -427,5 +427,6 @@ export const run = {
    },
    error: false
 }
+
 
 
