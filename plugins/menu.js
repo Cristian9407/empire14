@@ -382,22 +382,22 @@ export const run = {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
                      display_text: 'Github Oficial',
-                     url: 'https://wapify.crysis.eu',
-                     merchant_url: 'https://wapify.crysis.eu'
+                     url: 'https://github.com/crysis/empirebot',
+                     merchant_url: 'https://github.com/crysis/empirebot'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
                      display_text: 'WhatsApp Grupo',
-                     url: 'https://api.crysis.eu',
-                     merchant_url: 'https://api.crysis.eu'
+                     url: 'https://chat.whatsapp.com/I7OQwT6z888FiYKFfR2jPi',
+                     merchant_url: 'https://chat.whatsapp.com/I7OQwT6z888FiYKFfR2jPi'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
                      display_text: 'WhatsApp Canal',
-                     url: 'https://shop.crysis.eu',
-                     merchant_url: 'https://shop.crysis.eu'
+                     url: 'https://whatsapp.com/channel/0029VaDSuZcATRSmU4LvDm0Q',
+                     merchant_url: 'https://whatsapp.com/channel/0029VaDSuZcATRSmU4LvDm0Q'
                   })
                }, {
                   name: 'single_select',
@@ -427,6 +427,7 @@ export const run = {
    },
    error: false
 }
+
 
 
 
