@@ -368,13 +368,13 @@ export const run = {
                const keys = Object.keys(category).sort()
                let sections = []
                const label = {
-                  highlight_label: 'Many Used'
+                  highlight_label: 'Más usados'
                }
                keys.sort((a, b) => a.localeCompare(b)).map((v, i) => sections.push({
                   ...(/download|conver|util/.test(v) ? label : {}),
                   rows: [{
                      title: Utils.ucword(v),
-                     description: `There are ${Utils.arrayJoin(Object.entries(plugins).filter(([_, x]) => x.run.usage && x.run.category == v.trim().toLowerCase() && !setting.hidden.includes(x.run.category.toLowerCase())).map(([_, x]) => x.run.usage)).length} commands`,
+                     description: `Hay ${Utils.arrayJoin(Object.entries(plugins).filter(([_, x]) => x.run.usage && x.run.category == v.trim().toLowerCase() && !setting.hidden.includes(x.run.category.toLowerCase())).map(([_, x]) => x.run.usage)).length} comandos`,
                      id: `${isPrefix + command} ${v}`
                   }]
                }))
@@ -382,29 +382,29 @@ export const run = {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
                      display_text: 'Wapify - WhatsApp Gateway',
-                     url: 'https://wapify.neoxr.eu',
-                     merchant_url: 'https://wapify.neoxr.eu'
+                     url: 'https://wapify.crysis.eu',
+                     merchant_url: 'https://wapify.crysis.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Neoxr API',
-                     url: 'https://api.neoxr.eu',
-                     merchant_url: 'https://api.neoxr.eu'
+                     display_text: 'Crysis API',
+                     url: 'https://api.crysis.eu',
+                     merchant_url: 'https://api.crysis.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
                      display_text: 'Temporary Uploader',
-                     url: 'https://s.neoxr.eu',
-                     merchant_url: 'https://s.neoxr.eu'
+                     url: 'https://s.crysis.eu',
+                     merchant_url: 'https://s.crysis.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Neoxr Official Store',
-                     url: 'https://shop.neoxr.eu',
-                     merchant_url: 'https://shop.neoxr.eu'
+                     display_text: 'Crysis Official Store',
+                     url: 'https://shop.crysis.eu',
+                     merchant_url: 'https://shop.crysis.eu'
                   })
                }, {
                   name: 'single_select',
@@ -421,7 +421,7 @@ export const run = {
                   media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
                   multiple: {
                      name: 'オートメーション',
-                     code: 'Neoxr Creative',
+                     code: 'Crysis Creative',
                      list_title: 'Select Menu',
                      button_title: 'Tap Here!'
                   }
@@ -434,3 +434,4 @@ export const run = {
    },
    error: false
 }
+
