@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 export const run = {
-   usage: ['apk', 'button2', 'button3', 'button4', 'button5', 'button6'],
+   usage: ['apk', 'button2', 'button3', 'button4', 'button5', 'button6', 'button7'],
    category: 'example',
    async: async (m, {
       client,
@@ -96,7 +96,7 @@ export const run = {
                   footer: global.footer,
                   media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'), // video or image link
                   document: {
-                     filename: 'neoxr-cover.jpg'
+                     filename: 'empire-cover.jpg'
                   }
                })
                break
@@ -132,8 +132,8 @@ export const run = {
                      buttons: [{
                         name: "cta_url",
                         buttonParamsJson: JSON.stringify({
-                           display_text: 'Neoxr API',
-                           url: 'https://api.neoxr.eu',
+                           display_text: 'Crysis API',
+                           url: 'https://api.crysis.eu',
                            webview_presentation: null
                         })
                      }]
@@ -165,6 +165,66 @@ export const run = {
                   thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64')
                })
                break
+            
+            case 'button7': {
+               const buttons = [{
+                  name: "quick_reply",
+                  buttonParamsJson: JSON.stringify({
+                     display_text: "Owner",
+                     id: `${isPrefix}owner`
+                  }),
+               }, {
+                  name: "cta_url",
+                  buttonParamsJson: JSON.stringify({
+                     display_text: "Rest API",
+                     url: "https://api.crysis.my.id",
+                     merchant_url: "https://api.crysis.my.id"
+                  })
+               }, {
+                  name: "cta_copy",
+                  buttonParamsJson: JSON.stringify({
+                     display_text: "Copy",
+                     copy_code: "123456"
+                  })
+               }, {
+                  name: "cta_call",
+                  buttonParamsJson: JSON.stringify({
+                     display_text: "Call",
+                     phone_number: "593985807958"
+                  })
+               }, {
+                  name: "single_select",
+                  buttonParamsJson: JSON.stringify({
+                     title: "Next Page",
+                     sections: [{
+                        rows: [{
+                           title: "Owner",
+                           description: `X`,
+                           id: `${isPrefix}owner`
+                        }, {
+                           title: "Runtime",
+                           description: `Y`,
+                           id: `${isPrefix}run`
+                        }]
+                     }]
+                  })
+               }]
+
+               client.sendIAMessage(m.chat, buttons, m, {
+                  header: global.header,
+                  content: 'Hi! @0',
+                  v2: true,
+                  footer: global.footer,
+                  media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
+                  multiple: {
+                     name: 'オートメーション',
+                     code: 'empire-bot',
+                     list_title: 'Select Menu',
+                     button_title: 'Tap Here!'
+                  }
+               })
+               break
+            }
          }
       } catch (e) {
          client.reply(m.chat, Utils.jsonFormat(e), m)
@@ -173,6 +233,7 @@ export const run = {
    error: false
 
 }
+
 
 
 
