@@ -381,35 +381,28 @@ export const run = {
                const buttons = [{
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Wapify - WhatsApp Gateway',
+                     display_text: 'Instagram Oficial',
                      url: 'https://wapify.crysis.eu',
                      merchant_url: 'https://wapify.crysis.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Crysis API',
+                     display_text: 'WhatsApp Grupo',
                      url: 'https://api.crysis.eu',
                      merchant_url: 'https://api.crysis.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Temporary Uploader',
-                     url: 'https://s.crysis.eu',
-                     merchant_url: 'https://s.crysis.eu'
-                  })
-               }, {
-                  name: 'cta_url',
-                  buttonParamsJson: JSON.stringify({
-                     display_text: 'Crysis Official Store',
+                     display_text: 'WhatsApp Canal',
                      url: 'https://shop.crysis.eu',
                      merchant_url: 'https://shop.crysis.eu'
                   })
                }, {
                   name: 'single_select',
                   buttonParamsJson: JSON.stringify({
-                     title: 'Next Page',
+                     title: 'Menu',
                      sections
                   })
                }]
@@ -423,7 +416,7 @@ export const run = {
                      name: 'オートメーション',
                      code: 'Crysis Creative',
                      list_title: 'Select Menu',
-                     button_title: 'Tap Here!'
+                     button_title: 'Toque aquí!'
                   }
                })
             }
@@ -434,4 +427,5 @@ export const run = {
    },
    error: false
 }
+
 
