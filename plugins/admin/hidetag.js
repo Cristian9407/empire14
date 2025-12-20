@@ -1,6 +1,6 @@
 export const run = {
    usage: ['notificar'],
-   hidden: ['hidetag', 'tag', 'htag', 'ht'],
+   hidden: ['hidetag', 'tag', 'htag', 'ht', 'notify'],
    use: 'text',
    category: 'admin tools',
    async: async (m, {
