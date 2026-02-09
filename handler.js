@@ -5,6 +5,7 @@ const cooldown = new Cooldown(Config.cooldown)
 const spam = new Spam({
    RESET_TIMER: Config.cooldown,
    HOLD_TIMER: Config.timeout,
+   HOLD_THRESHOLD: Config.hold_threshold,
    PERMANENT_THRESHOLD: Config.permanent_threshold,
    NOTIFY_THRESHOLD: Config.notify_threshold,
    BANNED_THRESHOLD: Config.banned_threshold
@@ -19,6 +20,16 @@ export default async (client, ctx) => {
          m.isGroup ? client.resolveGroupMetadata(m.chat) : Promise.resolve({}),
          client.fetchBlocklist().catch(() => [])
       ])
+
+      if (m.isGroup && groupMetadata?.participants) {
+         if (m?.sender?.endsWith('lid')) m.sender = groupMetadata.participants?.find(v => 
+            v.lid === m.sender || v.id === m.sender
+         )?.phoneNumber
+
+         if (m?.quoted?.sender?.endsWith('lid')) m.quoted.sender = groupMetadata.participants?.find(v => 
+            v.lid === m.quoted.sender || v.id === m.quoted.sender
+         )?.phoneNumber
+      }
 
       schema(m, Config)
 
@@ -105,8 +116,6 @@ export default async (client, ctx) => {
             groupSet.member[m.sender].lastseen = now
          }
       }
-      // if (setting.antispam && isSpam && /(BANNED|NOTIFY|TEMPORARY)/.test(isSpam.state)) return client.reply(m.chat, Utils.texted('bold', `🚩 ${isSpam.msg}`), m)
-      // if (setting.antispam && isSpam && /HOLD/.test(isSpam.state)) return
       if (body && !setting.self && core.prefix != setting.onlyprefix && commands.includes(core.command) && !setting.multiprefix && !Config.evaluate_chars.includes(core.command)) return client.reply(m.chat, `🚩 *Prefijo incorrecto!*, este bot usa prefijo : *[ ${setting.onlyprefix} ]*\n\n➠ ${setting.onlyprefix + core.command} ${text || ''}`, m)
       const matcher = Utils.matcher(command, commands).filter(v => v.accuracy >= 60)
       if (prefix && !commands.includes(command) && matcher.length > 0 && !setting.self) {
@@ -137,28 +146,31 @@ export default async (client, ctx) => {
             if (setting.self && !isOwner && !m.fromMe) continue
             if (!m.isGroup && !['owner'].includes(name) && chats && !isPrem && !users.banned && new Date() * 1 - chats.lastchat < Config.timeout) continue
             if (!m.isGroup && !['owner', 'menfess', 'scan', 'verify', 'payment', 'premium'].includes(name) && chats && !isPrem && !users.banned && setting.groupmode) {
-               client.sendMessageModify(m.chat, `⚠️ Using bot in private chat only for premium user, want to upgrade to premium plan ? send *${prefixes[0]}premium* to see benefit and prices.`, m, {
+               client.sendMessageModify(m.chat, `⚠️ Uso de bot en chat privado solo para usuarios premium. ¿Quieres actualizar a un plan premium? envia *${prefixes[0]}premium* para ver precios y beneficios.`, m, {
                   largeThumb: true,
                   thumbnail: 'https://telegra.ph/file/0b32e0a0bb3b81fef9838.jpg',
                   url: setting.link
                }).then(() => chats.lastchat = new Date() * 1)
                continue
             }
-            if (!['me', 'owner', 'exec'].includes(name) && users && (users.banned || new Date - users.ban_temporary < Config.timeout)) continue
+            if (!['me', 'owner', 'exec'].includes(name) && users && (users.banned || new Date - users.ban_temporary < Config.timeout)) {
+               client.reply(m.chat, Utils.texted('bold', `⚠️ ${isSpam.msg}`), m)
+               continue
+            }
             if (m.isGroup && !['activation', 'groupinfo'].includes(name) && groupSet.mute) continue
             if (cmd.owner && !isOwner) {
                client.reply(m.chat, global.status.owner, m)
                continue
             }
             if (cmd.restrict && !isPrem && !isOwner && text && new RegExp('\\b' + setting.toxic.join('\\b|\\b') + '\\b').test(text.toLowerCase())) {
-               client.reply(m.chat, `⚠️ You violated the *Terms & Conditions* of using bots by using blacklisted keywords, as a penalty for your violation being blocked and banned.`, m).then(() => {
+               client.reply(m.chat, `⚠️ Violaste los *Términos y Condiciones* de uso de bots al usar palabras clave incluidas en la lista negra. Como penalización por tu violación serás bloqueado y baneado.`, m).then(() => {
                   users.banned = true
                   client.updateBlockStatus(m.sender, 'block')
                })
                continue
             }
-            if (setting.antispam && isSpam && /(BANNED|NOTIFY|TEMPORARY)/.test(isSpam.state)) {
-               client.reply(m.chat, Utils.texted('bold', `🚩 ${isSpam.msg}`), m)
+            if (setting.antispam && isSpam && /(BANNED|NOTIFY)/.test(isSpam.state)) {
+               client.reply(m.chat, Utils.texted('bold', `⚠️ ${isSpam.msg}`), m)
                continue
             }
             if (setting.antispam && isSpam && /HOLD/.test(isSpam.state)) continue
@@ -167,7 +179,7 @@ export default async (client, ctx) => {
                continue
             }
             if (cmd.limit && users.limit < 1) {
-               client.reply(m.chat, `⚠️ You reached the limit and will be reset at 00.00\n\nTo get more limits upgrade to premium plans.`, m).then(() => users.premium = false)
+               client.reply(m.chat, `⚠️ Has alcanzado el límite y se reiniciará a las 00.00\n\nPara obtener más límites, actualice a planes premium.`, m).then(() => users.premium = false)
                continue
             }
             if (cmd.limit && users.limit > 0) {
@@ -175,7 +187,7 @@ export default async (client, ctx) => {
                if (users.limit >= limit) {
                   users.limit -= limit
                } else {
-                  client.reply(m.chat, Utils.texted('bold', `⚠️ Your limit is not enough to use this feature.`), m)
+                  client.reply(m.chat, Utils.texted('bold', `⚠️ Tu límite no es suficiente para usar esta función.`), m)
                   continue
                }
             }
