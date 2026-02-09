@@ -17,7 +17,7 @@ export const run = {
       caption += `	◦  *Name* : ${m.pushName}\n`
       caption += `	◦  *Limit* : ${Utils.formatNumber(user.limit)}\n`
       caption += `	◦  *Hitstat* : ${Utils.formatNumber(user.hit)}\n`
-      caption += `	◦  *Warning* : ${((m.isGroup) ? (typeof global.db.groups.find(v => v.jid == m.chat).member[m.sender] != 'undefined' ? global.db.groups.find(v => v.jid == m.chat).member[m.sender].warning : 0) + ' / 5' : user.warning + ' / 5')}\n\n`
+      caption += `	◦  *Warning* : ${((m.isGroup) ? (typeof global.db.groups.find(v => v.jid == m.chat).member[m.sender] != 'undefined' ? global.db.groups.find(v => v.jid == m.chat).member[m.sender].warning : 0) + ' / 3' : user.warning + ' / 3')}\n\n`
       caption += `乂  *U S E R - S T A T U S*\n\n`
       caption += `	◦  *Blocked* : ${(blocked ? '√' : '×')}\n`
       caption += `	◦  *Banned* : ${(user.ban_temporary > 0 && (Date.now() - user.ban_temporary < Config.timeout))
@@ -34,3 +34,4 @@ export const run = {
    },
    error: false
 }
+
