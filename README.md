@@ -51,11 +51,10 @@
 
 ### ⌗ CLOUD DATABASE
 
-- [x] PostgreSQL [Supabase](https://supabase.com/pricing) ~ [Setup Tutorial](https://youtu.be/kdyF7cP9E7k?si=YjlxI5OMHBdkSxkw) (Recommended)
-- [x] PostgreSQL [Cockroach](https://cockroachlabs.cloud/) (Recommended)
-- [x] PostgreSQL [Aiven](https://aiven.io) ~ Remove ```?sslmode=required```
-- [x] MySQL [Aiven](https://aiven.io) 
-- [x] MongoDB [MongoDB](https://www.mongodb.com) ~ [Setup Tutorial](https://youtu.be/-9lfyWz0SdE?si=nmyA6qeBYKbO4R45) (Recommended)
+- [x] PostgreSQL : [Neon](https://neon.com/), [Cockroach](https://cockroachlabs.cloud/), [Filess](https://filess.io/), [Aiven](https://aiven.io), [Supabase](https://supabase.com/pricing) ([Setup Tutorial](https://youtu.be/kdyF7cP9E7k?si=YjlxI5OMHBdkSxkw))
+- [x] MySQL : [Aiven](https://aiven.io), [Filess](https://filess.io/)
+- [x] Redis : [Upstash](https://upstash.com/)
+- [x] Mongo : [MongoDB](https://www.mongodb.com) ([Setup Tutorial](https://youtu.be/-9lfyWz0SdE?si=nmyA6qeBYKbO4R45))
 
 > [!IMPORTANT]
 > Database setup tutorial, choose based on language : [ID](https://github.com/neoxr/neoxr-bot/blob/5.0-ESM/documentation/DATABASE-ID.md) | [EN](https://github.com/neoxr/neoxr-bot/blob/5.0-ESM/documentation/DATABASE-EN.md)
@@ -93,7 +92,7 @@ Configuration of this script consists of two files: [config.json](https://github
 ### Neoxr API : https://api.neoxr.my.id
 API_KEY = ''
 
-### Database (Mongo, PostgreSQL, MySQL) — leave empty for local (JSON)
+### Database (Mongo, PostgreSQL, MySQL, Redis) — leave empty for local (JSON)
 DATABASE_URL = ''
 
 ### Timezone (Important)
@@ -117,7 +116,7 @@ $ pm2 start pm2.config.cjs && pm2 logs neoxr
 > [!NOTE]
 > I don't know how to use Windows bacause I'm Linux user, so I didn't create files for installation on Windows :v
 
-### INSTALATION & RUN (DOCKER)
+### ⌗ INSTALATION & RUN (DOCKER)
 
 ```bash
 $ sudo apt update -y && sudo apt install curl -y
@@ -133,6 +132,71 @@ How to stop ?
 ```bash
 $ docker stop neoxr
 ```
+
+### ⌗ DATABASE ADVANCE METHOD
+
+```Javascript
+// .all() --- Get all data entry from the array
+=> global.db.users.all()
+
+// .get() --- Find a single data entry from the array by jid, lid, id, or _id
+=> global.db.users.get(jid)
+
+// .delete() --- Delete a single data entry from the array by jid, lid, id, or _id
+=> global.db.users.delete(jid)
+
+// .drop() --- Drops a collection of object or array data
+=> global.db.users.drop() // --- Array
+=> global.db.statstic.drop() // --- Object
+
+// Chainable Method
+=> global.db.bots(jid)?.data?.users.get(jid)
+
+```
+
+> [!IMPORTANT]
+> To add new data to global.db (e.g., global.db.reports), add data structure in the structure() block method in [models.js.](https://github.com/neoxrjs/v5.1-optima/blob/a5b88906d1ffffa8610fbbcd84fb957e1bf649b9/lib/system/models.js#L216)
+
+## ⌗ TROUBLESHOOTING
+
+### 1. Baileys
+
+If you encounter issues or get stuck using ```npm:neoxr/baileys```, consider using one of the alternative Baileys packages listed below.
+
+─ All fixed and more advance features modified by [@itsliaaa](https://github.com/itsliaaa) **(Stable)** ~ [Documentation](https://www.npmjs.com/package/@itsliaaa/baileys)
+
+```JSON
+"baileys": "npm:@itsliaaa/baileys"
+```
+
+─ Fix connection modified by [@MichelleBot](https://github.com/MichelleBot) **(Stable)** ~ [Documentation](https://github.com/MichelleBot/baileys/blob/master/README.md)
+
+```JSON
+"baileys": "git+https://github.com/MichelleBot/baileys.git"
+```
+
+─ Only add StickerPack function and overhaul resource usage on connection. **(Experiment Only :v)**
+
+```JSON
+"baileys": "git+https://github.com/neoxr/baileys.git"
+```
+
+─ Original Baileys by [@WhiskeySockets](https://github.com/whiskeySockets/Baileys.git)
+
+```JSON
+"baileys": "git+https://github.com/whiskeySockets/Baileys.git"
+```
+
+### 2. Sharp (Error on Termux)
+
+If you encounter an error when installing or building the `sharp` module in Termux, it is usually due to CPU architecture compatibility issues on Android. 
+
+To fix this, manually run the following command in your Termux console to install the WebAssembly version of sharp:
+
+```bash
+npm install --cpu=wasm32 sharp
+```
+Related issue : [#213](https://github.com/neoxr/neoxr-bot/issues/213)
 
 > [!IMPORTANT]
 > Check this repository regularly to get updates because the progress base is not 100% yet (this is just a base or beta test), if you find an error please make an issue. Thanks.
