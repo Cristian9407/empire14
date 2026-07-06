@@ -3,6 +3,7 @@ export const run = {
    category: 'utilities',
    async: async (m, {
       client,
+      setting,
       Utils
    }) => {
       try {
@@ -19,7 +20,11 @@ export const run = {
          caption += global.footer
          client.sendMessageModify(m.chat, caption, m, {
             largeThumb: true,
-            thumbnail: await Utils.fetchAsBuffer(json.data.map)
+            type: 'preview-link',
+            /* choose: landscape (default), potrait, square */
+            ratio: 'square',
+            thumbnail: await Utils.fetchAsBuffer(json.data.map),
+            icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
          })
       } catch (e) {
          client.reply(m.chat, Utils.jsonFormat(e), m)
