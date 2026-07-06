@@ -37,6 +37,11 @@ export const run = {
                   client.groupStatus(id, {
                      message: { [q.mtype]: { ...q, caption: texts || q.text || '' } },
                      caption: texts || q.text || ''
+                  }, {
+                     private: {
+                        name: 'Neoxr Creative',
+                        emoji: '😈'
+                     }
                   }).then(async () => {
                      await client.sendReact(m.chat, '✅', m.key)
                   })
@@ -45,6 +50,11 @@ export const run = {
                   client.groupStatus(id, {
                      message: { [q.mtype]: q },
                      background: color
+                  }, {
+                     private: {
+                        name: 'Neoxr Creative',
+                        emoji: '😈'
+                     }
                   }).then(async () => {
                      await client.sendReact(m.chat, '✅', m.key)
                   })
@@ -53,7 +63,13 @@ export const run = {
                   await client.sendReact(m.chat, '🕒', m.key)
                   client.groupStatus(id, {
                      text: texts,
+                     color: color,
                      background: color
+                  }, {
+                     private: {
+                        name: 'Neoxr Creative',
+                        emoji: '😈'
+                     }
                   }).then(async () => {
                      await client.sendReact(m.chat, '✅', m.key)
                   })
@@ -143,7 +159,11 @@ export const run = {
                   group
                }) + '\n\n' + global.footer, m, {
                   largeThumb: true,
-                  thumbnail: picture
+                  type: 'preview-link',
+                  /* choose: landscape (default), potrait, square */
+                  ratio: 'landscape',
+                  thumbnail: picture,
+                  icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
                })
             }
          }
