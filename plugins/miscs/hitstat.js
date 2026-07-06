@@ -27,9 +27,12 @@ export const run = {
       teks += sorted.slice(0, show).map(([cmd, prop], i) => '   ┌ ' + Utils.texted('bold', 'Command') + ' :  ' + Utils.texted('monospace', isPrefix + cmd) + '\n   │ ' + Utils.texted('bold', 'Hit') + ' : ' + Utils.formatNumber(command == 'hitstat' ? prop.hitstat : prop.today) + 'x\n   └ ' + Utils.texted('bold', 'Last Hit') + ' : ' + format(prop.lasthit, 'dd/MM/yy HH:mm:ss')).join`\n\n`
       teks += `\n\n${global.footer}`
       client.sendMessageModify(m.chat, teks, m, {
-         ads: false,
          largeThumb: true,
+         type: 'preview-link',
+         /* choose: landscape (default), potrait, square */
+         ratio: 'landscape',
          thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
+         icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
       })
    },
    error: false
