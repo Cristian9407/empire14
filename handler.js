@@ -35,9 +35,9 @@ export default async (client, ctx) => {
 
       schema(m, Config)
 
-      let groupSet = global.db.groups.find(v => v.jid === m.chat)
-      let chats = global.db.chats.find(v => v.jid === m.chat)
-      let users = global.db.users.find(v => v.jid === m.sender)
+      let groupSet = global.db.groups.get(m.chat)
+      let chats = global.db.chats.get(m.chat)
+      let users = global.db.users.get(m.sender)
       let setting = global.db.setting
       let isOwner = [client.decodeJid(client.user.id).replace(/@.+/, ''), Config.owner, ...setting.owners].map(v => v + '@s.whatsapp.net').includes(m.sender)
       let isPrem = users && users.premium || isOwner
@@ -117,7 +117,7 @@ export default async (client, ctx) => {
          chats.lastseen = new Date * 1
       }
       if (m.isGroup && !m.isBot && users && users.afk > -1) {
-         client.reply(m.chat, `Estás de nuevo en línea después de haber estado desconectado por : ${Utils.texted('bold', Utils.toTime(new Date - users.afk))}\n\n• ${Utils.texted('bold', 'Razón')}: ${users.afkReason ? users.afkReason : '-'}`, m)
+         client.reply(m.chat, `You are back online after being offline for : ${Utils.texted('bold', Utils.toTime(new Date - users.afk))}\n\n• ${Utils.texted('bold', 'Reason')}: ${users.afkReason ? users.afkReason : '-'}`, m)
          users.afk = -1
          users.afkReason = ''
          users.afkObj = {}
@@ -165,7 +165,7 @@ export default async (client, ctx) => {
 
             let caption = `🚩 *Command not found.* Did you mean :\n\n`
             caption += global.typo.get(m.sender).commands.map((v, i) => `*${i + 1}.* ${prefix + v} (${matcher[i].accuracy}%)`).join('\n')
-            caption += `\n\n> Responda con el *número* que desea ejecutar. (Expira en 3 minutos)`
+            caption += `\n\n> Reply with the *number* to execute. (Expires in 3 minutes)`
 
             return client.reply(m.chat, caption, m)
          }
@@ -177,7 +177,7 @@ export default async (client, ctx) => {
          body && prefix && commands.includes(command) && !setting.multiprefix && setting.onlyprefix === prefix ||
          body && !prefix && commands.includes(command) && Config.evaluate_chars.includes(command)
       ) {
-         if (setting.error.includes(command)) return client.reply(m.chat, Utils.texted('bold', `🚩 Comando _${(prefix ? prefix : '') + command}_ desactivado.`), m)
+         if (setting.error.includes(command)) return client.reply(m.chat, Utils.texted('bold', `🚩 Command _${(prefix ? prefix : '') + command}_ disabled.`), m)
          if (!m.isGroup && Config.blocks.some(no => m.sender?.startsWith(no))) return client.updateBlockStatus(m.sender, 'block')
          if (commands.includes(command)) {
             users.hit += 1
@@ -195,10 +195,14 @@ export default async (client, ctx) => {
             if (setting.self && !isOwner && !m.fromMe) continue
             if (!m.isGroup && !['owner'].includes(name) && chats && !isPrem && !users.banned && new Date() * 1 - chats.lastchat < Config.timeout) continue
             if (!m.isGroup && !['owner', 'menfess', 'scan', 'verify', 'payment', 'premium'].includes(name) && chats && !isPrem && !users.banned && setting.groupmode) {
-               client.sendMessageModify(m.chat, `⚠️ El uso del bot en el chat privado es exclusivo para usuarios premium. ¿Desea actualizar a un plan premium? envia *${prefixes[0]}premium* para ver beneficios y precios.`, m, {
+               client.sendMessageModify(m.chat, `⚠️ Using bot in private chat only for premium user, want to upgrade to premium plan ? send *${prefixes[0]}premium* to see benefit and prices.`, m, {
                   largeThumb: true,
                   thumbnail: 'https://telegra.ph/file/0b32e0a0bb3b81fef9838.jpg',
-                  url: setting.link
+                  type: 'preview-link',
+                  /* choose: landscape (default), potrait, square */
+                  ratio: 'landscape',
+                  url: setting.link,
+                  icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
                }).then(() => chats.lastchat = new Date() * 1)
                continue
             }
@@ -212,7 +216,7 @@ export default async (client, ctx) => {
                continue
             }
             if (cmd.restrict && !isPrem && !isOwner && text && new RegExp('\\b' + setting.toxic.join('\\b|\\b') + '\\b').test(text.toLowerCase())) {
-               client.reply(m.chat, `⚠️ Usted violó los *Términos y Condiciones* del uso de bots al utilizar palabras clave incluidas en la lista negra; como castigo por su infracción, será bloqueado y baneado.`, m).then(() => {
+               client.reply(m.chat, `⚠️ You violated the *Terms & Conditions* of using bots by using blacklisted keywords, as a penalty for your violation being blocked and banned.`, m).then(() => {
                   users.banned = true
                   client.updateBlockStatus(m.sender, 'block')
                })
@@ -228,7 +232,7 @@ export default async (client, ctx) => {
                continue
             }
             if (cmd.limit && users.limit < 1) {
-               client.reply(m.chat, `⚠️ Has alcanzado el límite y se reiniciará a 00.00\n\nPara obtener más límites, actualiza a planes premium.`, m).then(() => users.premium = false)
+               client.reply(m.chat, `⚠️ You reached the limit and will be reset at 00.00\n\nTo get more limits upgrade to premium plans.`, m).then(() => users.premium = false)
                continue
             }
             if (cmd.limit && users.limit > 0) {
@@ -236,7 +240,7 @@ export default async (client, ctx) => {
                if (users.limit >= limit) {
                   users.limit -= limit
                } else {
-                  client.reply(m.chat, Utils.texted('bold', `⚠️ Tu límite no es suficiente para usar esta función.`), m)
+                  client.reply(m.chat, Utils.texted('bold', `⚠️ Your limit is not enough to use this feature.`), m)
                   continue
                }
             }
@@ -268,7 +272,7 @@ export default async (client, ctx) => {
             if (!['anti_link', 'anti_tagall', 'anti_virtex', 'filter'].includes(name) && users && (users.banned || new Date - users.ban_temporary < Config.timeout)) continue
             if (!['anti_link', 'anti_tagall', 'anti_virtex', 'filter'].includes(name) && groupSet && groupSet.mute) continue
             if (!m.isGroup && !['menfess_ev', 'chatbot', 'auto_download'].includes(name) && chats && !isPrem && !users.banned && new Date() * 1 - chats.lastchat < Config.timeout) continue
-            if (!m.isGroup && setting.groupmode && !['system_ev', 'menfess_ev', 'chatbot', 'auto_download'].includes(name) && !isPrem) return client.sendMessageModify(m.chat, `⚠️ El uso del bot en el chat privado es exclusivo para usuarios premium. ¿Desea actualizar a un plan premium? envia *${prefixes[0]}premium* para ver beneficios y precios.`, m, {
+            if (!m.isGroup && setting.groupmode && !['system_ev', 'menfess_ev', 'chatbot', 'auto_download'].includes(name) && !isPrem) return client.sendMessageModify(m.chat, `⚠️ Using bot in private chat only for premium user, want to upgrade to premium plan ? send *${prefixes[0]}premium* to see benefit and prices.`, m, {
                largeThumb: true,
                thumbnail: await Utils.fetchAsBuffer('https://telegra.ph/file/0b32e0a0bb3b81fef9838.jpg'),
                url: setting.link
@@ -281,7 +285,7 @@ export default async (client, ctx) => {
             if (event.error) continue
             if (event.owner && !isOwner) continue
             if (event.group && !m.isGroup) continue
-            if (event.limit && !event.game && users.limit < 1 && body && Utils.generateLink(body) && Utils.generateLink(body).some(v => Utils.socmed(v))) return client.reply(m.chat, `⚠️ Has alcanzado el límite y se reiniciará a 00.00\n\nPara obtener más límites, actualiza a planes premium.`, m).then(() => {
+            if (event.limit && !event.game && users.limit < 1 && body && Utils.generateLink(body) && Utils.generateLink(body).some(v => Utils.socmed(v))) return client.reply(m.chat, `⚠️ You reached the limit and will be reset at 00.00\n\nTo get more limits upgrade to premium plan.`, m).then(() => {
                users.premium = false
                users.expired = 0
             })
@@ -295,4 +299,4 @@ export default async (client, ctx) => {
    } catch (e) {
       Utils.printError(e)
    }
-                                                                                          }
+}
