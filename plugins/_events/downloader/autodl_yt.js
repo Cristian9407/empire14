@@ -4,6 +4,7 @@ export const run = {
       client,
       body,
       users,
+      setting,
       Config,
       Utils
    }) => {
@@ -48,13 +49,17 @@ export const run = {
                   let isSize = (json.data.size).replace(/MB/g, '').trim()
                   if (isSize > 99) return client.sendMessageModify(m.chat, caption, m, {
                      largeThumb: true,
-                     thumbnail: await Utils.fetchAsBuffer(json.thumbnail)
+                     type: 'preview-link',
+                     /* choose: landscape (default), potrait, square */
+                     ratio: 'landscape',
+                     thumbnail: await Utils.fetchAsBuffer(json.thumbnail),
+                     icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
                   }).then(async () => {
-                     await client.sendFile(m.chat, json.data.buffer, json.data.filename, caption, m, {
+                     await client.sendFile(m.chat, json.data.url, json.data.filename, caption, m, {
                         document: true
                      })
                   })
-                  client.sendFile(m.chat, json.data.buffer, json.data.filename, caption, m)
+                  client.sendFile(m.chat, json.data.url, json.data.filename, caption, m)
                })
             }
          }
