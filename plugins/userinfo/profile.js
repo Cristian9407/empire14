@@ -6,6 +6,7 @@ export const run = {
       client,
       text,
       blockList,
+      setting,
       Config,
       Utils
    }) => {
@@ -30,7 +31,7 @@ export const run = {
          caption += `	◦  *Name* : ${target.name}\n`
          caption += `	◦  *Limit* : ${Utils.formatNumber(target.limit)}\n`
          caption += `	◦  *Hitstat* : ${Utils.formatNumber(target.hit)}\n`
-         caption += `	◦  *Warning* : ${((m.isGroup) ? (typeof global.db.groups.find(v => v.jid == m.chat).member[user] != 'undefined' ? global.db.groups.find(v => v.jid == m.chat).member[user].warning : 0) + ' / 3' : target.warning + ' / 3')}\n\n`
+         caption += `	◦  *Warning* : ${((m.isGroup) ? (typeof global.db.groups.find(v => v.jid == m.chat).member[user] != 'undefined' ? global.db.groups.find(v => v.jid == m.chat).member[user].warning : 0) + ' / 5' : target.warning + ' / 5')}\n\n`
          caption += `乂  *U S E R - S T A T U S*\n\n`
          caption += `	◦  *Blocked* : ${(blocked ? '√' : '×')}\n`
          caption += `	◦  *Banned* : ${(target.ban_temporary > 0 && (Date.now() - target.ban_temporary < Config.timeout))
@@ -42,7 +43,11 @@ export const run = {
          caption += global.footer
          client.sendMessageModify(m.chat, caption, m, {
             largeThumb: true,
-            thumbnail: avatar
+            type: 'preview-link',
+            /* choose: landscape (default), potrait, square */
+            ratio: 'square',
+            thumbnail: avatar,
+            icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
          })
       }
    },
