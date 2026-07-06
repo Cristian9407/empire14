@@ -1,4 +1,3 @@
-
 import { Version } from '@neoxr/wb'
 import fs from 'node:fs'
 
@@ -69,8 +68,12 @@ export const run = {
             client.sendMessageModify(m.chat, Utils.Styles(print) + '\n\n' + global.footer, m, {
                ads: false,
                largeThumb: true,
+               type: 'preview-link',
+               /* choose: landscape (default), potrait, square */
+               ratio: 'landscape',
                thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
-               url: setting.link
+               url: setting.link,
+               icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
             })
          } else if (style === 2) {
             let filter = Object.entries(plugins).filter(([_, obj]) => obj.run.usage)
@@ -121,10 +124,13 @@ export const run = {
                }).join('\n')
             }
             client.sendMessageModify(m.chat, Utils.Styles(print) + '\n\n' + global.footer, m, {
-               ads: false,
                largeThumb: true,
+               type: 'preview-link',
+               /* choose: landscape (default), potrait, square */
+               ratio: 'landscape',
                thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
-               url: setting.link
+               url: setting.link,
+               icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
             })
          } else if (style === 3) {
             let filter = Object.entries(plugins).filter(([_, obj]) => obj.run.usage)
@@ -175,10 +181,13 @@ export const run = {
                }).join('\n')
             }
             client.sendMessageModify(m.chat, print + '\n\n' + global.footer, m, {
-               ads: false,
                largeThumb: true,
+               type: 'preview-link',
+               /* choose: landscape (default), potrait, square */
+               ratio: 'landscape',
                thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
-               url: setting.link
+               url: setting.link,
+               icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
             })
          } else if (style === 4) {
             if (text) {
@@ -238,10 +247,13 @@ export const run = {
                   }
                }).join('\n')
                client.sendMessageModify(m.chat, print + '\n\n' + global.footer, m, {
-                  ads: false,
                   largeThumb: true,
+                  type: 'preview-link',
+                  /* choose: landscape (default), potrait, square */
+                  ratio: 'landscape',
                   thumbnail: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
-                  url: setting.link
+                  url: setting.link,
+                  icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
                })
             }
          } else if (style === 5) {
@@ -368,41 +380,48 @@ export const run = {
                const keys = Object.keys(category).sort()
                let sections = []
                const label = {
-                  highlight_label: 'Más usados'
+                  highlight_label: 'Many Used'
                }
                keys.sort((a, b) => a.localeCompare(b)).map((v, i) => sections.push({
                   ...(/download|conver|util/.test(v) ? label : {}),
                   rows: [{
                      title: Utils.ucword(v),
-                     description: `Hay ${Utils.arrayJoin(Object.entries(plugins).filter(([_, x]) => x.run.usage && x.run.category == v.trim().toLowerCase() && !setting.hidden.includes(x.run.category.toLowerCase())).map(([_, x]) => x.run.usage)).length} comandos`,
+                     description: `There are ${Utils.arrayJoin(Object.entries(plugins).filter(([_, x]) => x.run.usage && x.run.category == v.trim().toLowerCase() && !setting.hidden.includes(x.run.category.toLowerCase())).map(([_, x]) => x.run.usage)).length} commands`,
                      id: `${isPrefix + command} ${v}`
                   }]
                }))
                const buttons = [{
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'Github Oficial',
-                     url: 'https://github.com/crysis/empirebot',
-                     merchant_url: 'https://github.com/crysis/empirebot'
+                     display_text: 'Wapify - WhatsApp Gateway',
+                     url: 'https://wapify.neoxr.eu',
+                     merchant_url: 'https://wapify.neoxr.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'WhatsApp Grupo',
-                     url: 'https://chat.whatsapp.com/I7OQwT6z888FiYKFfR2jPi',
-                     merchant_url: 'https://chat.whatsapp.com/I7OQwT6z888FiYKFfR2jPi'
+                     display_text: 'Neoxr API',
+                     url: 'https://api.neoxr.eu',
+                     merchant_url: 'https://api.neoxr.eu'
                   })
                }, {
                   name: 'cta_url',
                   buttonParamsJson: JSON.stringify({
-                     display_text: 'WhatsApp Canal',
-                     url: 'https://whatsapp.com/channel/0029VaDSuZcATRSmU4LvDm0Q',
-                     merchant_url: 'https://whatsapp.com/channel/0029VaDSuZcATRSmU4LvDm0Q'
+                     display_text: 'Temporary Uploader',
+                     url: 'https://s.neoxr.eu',
+                     merchant_url: 'https://s.neoxr.eu'
+                  })
+               }, {
+                  name: 'cta_url',
+                  buttonParamsJson: JSON.stringify({
+                     display_text: 'Neoxr Official Store',
+                     url: 'https://shop.neoxr.eu',
+                     merchant_url: 'https://shop.neoxr.eu'
                   })
                }, {
                   name: 'single_select',
                   buttonParamsJson: JSON.stringify({
-                     title: 'Menu',
+                     title: 'Next Page',
                      sections
                   })
                }]
@@ -414,9 +433,9 @@ export const run = {
                   media: Utils.isUrl(setting.cover) ? setting.cover : Buffer.from(setting.cover, 'base64'),
                   multiple: {
                      name: 'オートメーション',
-                     code: 'Crysis Creative',
+                     code: 'Neoxr Creative',
                      list_title: 'Select Menu',
-                     button_title: 'Toque aquí!'
+                     button_title: 'Tap Here!'
                   }
                })
             }
@@ -427,7 +446,3 @@ export const run = {
    },
    error: false
 }
-
-
-
-
