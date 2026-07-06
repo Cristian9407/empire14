@@ -8,6 +8,7 @@ export const run = {
       isPrefix,
       command,
       users,
+      setting,
       Config,
       Utils
    }) => {
@@ -19,20 +20,24 @@ export const run = {
          })
          if (!json.status) return client.reply(m.chat, Utils.jsonFormat(json), m)
          let caption = `乂  *Y T - P L A Y*\n\n`
-         caption += `	◦  *Título* : ${json.title}\n`
-         caption += `	◦  *Tamaño* : ${json.data.size}\n`
-         caption += `	◦  *Duración* : ${json.duration}\n`
-         caption += `	◦  *Bits* : ${json.data.quality}\n\n`
+         caption += `	◦  *Title* : ${json.title}\n`
+         caption += `	◦  *Size* : ${json.data.size}\n`
+         caption += `	◦  *Duration* : ${json.duration}\n`
+         caption += `	◦  *Bitrate* : ${json.data.quality}\n\n`
          caption += global.footer
          const chSize = Utils.sizeLimit(json.data.size, users.premium ? Config.max_upload : Config.max_upload_free)
-         const isOver = users.premium ? `💀 Tamaño del archivo (${json.data.size}) excede el límite máximo.` : `⚠️ Tamaño del archivo (${json.data.size}), sólo puedes descargar archivos con un tamaño máximo de ${Config.max_upload_free} MB y para usuarios premium un máximo de ${Config.max_upload} MB.`
+         const isOver = users.premium ? `💀 File size (${json.data.size}) exceeds the maximum limit.` : `⚠️ File size (${json.data.size}), you can only download files with a maximum size of ${Config.max_upload_free} MB and for premium users a maximum of ${Config.max_upload} MB.`
          if (chSize.oversize) return client.reply(m.chat, isOver, m)
          client.sendMessageModify(m.chat, caption, m, {
             largeThumb: true,
-            thumbnail: json.thumbnail
+            type: 'preview-link',
+            /* choose: landscape (default), potrait, square */
+            ratio: 'landscape',
+            thumbnail: json.thumbnail,
+            icon: setting.icon ? Utils.isUrl(setting.icon) ? setting.icon : Buffer.from(setting.icon, 'base64') : null
          }).then(async () => {
             client.sendFile(m.chat, json.data.url, json.data.filename, '', m, {
-               document: false,
+               document: true,
                APIC: await Utils.fetchAsBuffer(json.thumbnail)
             }, {
                jpegThumbnail: await Utils.generateImageThumbnail(json.thumbnail)
