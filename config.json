@@ -3,7 +3,7 @@
    "owner_name": "Cristian",
    "database": "data",
    "limit": 15,
-   "ram_limit": "900mb",
+   "ram_limit": "500mb",
    "max_upload": 500,
    "cpu_limit": true,
    "cpu_threshold": 85,
