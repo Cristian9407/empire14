@@ -1,6 +1,6 @@
 import { Converter } from '@neoxr/wb'
 import { readFileSync as read, unlinkSync as remove, writeFileSync as create } from 'fs'
-import { exec } from 'child_process'
+import { execFile } from 'child_process'
 
 export const run = {
    usage: ['tomp3', 'tovn'],
@@ -17,7 +17,7 @@ export const run = {
             client.sendReact(m.chat, '🕒', m.key)
             const media = await client.saveMediaMessage(m.quoted.videoMessage)
             const result = Utils.filename('mp3')
-            exec(`ffmpeg -i ${media} ${result}`, async (err, stderr, stdout) => {
+            execFile('ffmpeg', ['-i', media, result], async (err, stderr, stdout) => {
                remove(media)
                if (err) return client.reply(m.chat, Utils.texted('bold', `🚩 Conversion failed.`), m)
                let buff = read(result)
