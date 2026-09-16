@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 export const run = {
-   usage: ['metamsg1', 'metamsg2', 'metamsg3'],
+   usage: ['metamsg1', 'metamsg2', 'metamsg3', 'metamsg4', 'metamsg5', 'metamsg6'],
    category: 'example',
    async: async (m, {
       client,
@@ -45,7 +45,13 @@ export const run = {
          if (command === 'metamsg2') {
             client.sendMetaMsg(m.chat, [
                {
-                  text: `This is an example of a meta message (rich message) that does not support *~mentions~*, but has many variations. Such as citations [](https://api.neoxr.eu) and links [Neoxr API](https://api.neoxr.eu).\n\nCode formatting and tables are working:`
+                  text: `This is an example of a meta message (rich message) that does not support *~mentions~*, but has many variations. Such as citations [](https://api.neoxr.eu) and links [Neoxr API](https://api.neoxr.eu).`
+               },
+               {
+                  preview: 'https://i.pinimg.com/736x/c7/2c/b0/c72cb05eb27c7d52e9cfa0cea059b1c8.jpg'
+               },
+               {
+                  text: '\n\nCode formatting and tables are working:'
                },
                {
                   code: {
@@ -192,6 +198,71 @@ export const run = {
                   }))
                }], m, {
                title: global.header
+            })
+         }
+
+         if (command === 'metamsg4') {
+            const mediaId = `art?t=${Date.now()}`
+            const edit = [{
+               delay: 15000,
+               data: [{
+                  video: 'https://v1.pinimg.com/videos/iht/expMp4/d1/31/01/d13101277a12e62be6a0849895af9347_720w.mp4',
+                  replace: mediaId
+               }]
+            }]
+
+            client.sendMetaMsg(m.chat, [{
+               video: '',
+               status: 'GENERATING',
+               estimatedTime: 15000,
+               id: mediaId
+            }], m, { edit })
+         }
+
+         if (command === 'metamsg5') {
+            let caption = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            const mediaId = `art?t=${Date.now()}`
+            const words = caption.trim().split(/\s+/)
+
+            const edit = [{
+               delay: 15000,
+               data: [{
+                  image: 'https://i.pinimg.com/1200x/7e/b3/2b/7eb32b73ba149af8860349470335fa0f.jpg',
+                  replace: mediaId,
+               }, {
+                  text: words[0],
+                  replace: 'status'
+               }]
+            },
+            ...words.slice(1).map((_, i) => ({
+               delay: 400,
+               data: [{
+                  text: words.slice(0, i + 2).join(' '),
+                  replace: 'status'
+               }]
+            }))]
+
+            client.sendMetaMsg(m.chat, [{
+               video: '',
+               status: 'GENERATING',
+               estimatedTime: 15000,
+               id: mediaId
+            }, {
+               text: 'Generating...',
+               id: 'status',
+            }], m, { edit })
+         }
+
+         if (command === 'metamsg6') {
+            client.sendMetaMsg(m.chat, [{
+               id: 'game',
+               html: {
+                  payload: fs.readFileSync('./game.html'),
+                  trusted_sources: ['neoxr'],
+               },
+            }], m, {
+               title: '',
+               // bypassDownload: false (hapus comment biar pas ada pesan gak kedip)
             })
          }
       } catch (e) {
