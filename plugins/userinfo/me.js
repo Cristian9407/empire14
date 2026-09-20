@@ -1,5 +1,6 @@
 export const run = {
    usage: ['me'],
+   hidden: ['yo'],
    category: 'user info',
    async: async (m, {
       client,
