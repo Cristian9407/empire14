@@ -1,5 +1,6 @@
 export const run = {
-   usage: ['profile', 'perfil'],
+   usage: ['profile'],
+   hidden: ['perfil'],
    use: 'mention or reply',
    category: 'user info',
    async: async (m, {
